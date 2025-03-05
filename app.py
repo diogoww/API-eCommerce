@@ -37,6 +37,21 @@ def delete_product(product_id):
     #se n existe, retornar erro 404
     return jsonify ({"message": "Produto Não Encontrado"}), 404
 
+@app.route('/api/products/<int:product_id>', methods=["GET"])
+def get_product_details(product_id):
+    product = Product.query.get(product_id)
+    if product:
+        return jsonify({
+            "id":product.id,
+            "name":product.name,
+            "price":product.price,
+            "description":product.description
+        })
+    return jsonify({"message": "Produto não Encontrado"}), 404
+
+@app.route('/api/products/update/<int:product_id>', methods=["PUT"])
+
+
 #def rota raiz pag inicial e a funcao
 @app.route('/')
 def hello_world():
