@@ -68,6 +68,19 @@ def update_product(product_id):
     db.session.commit()
     return jsonify({'message': 'Produto Atualizado com Sucesso'})
 
+@app.route('/api/products', methods=['GET'])
+def get_products():
+    products = Product.query.all()
+    product_list = []
+    for product in products:
+        product_data = {
+            "id":product.id,
+            "name":product.name,
+            "price":product.price
+        }
+        product_list.append(product_data)
+    return jsonify(product_list)
+
 #def rota raiz pag inicial e a funcao
 @app.route('/')
 def hello_world():
